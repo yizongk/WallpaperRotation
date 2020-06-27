@@ -48,12 +48,12 @@ def get_all_sub_filefile_from_dir( dir='' ):
 
 #@TODO
 def file_is_image(filepath=''):
-    return False
+    return True
 
 def main():
     config_path = r'./config.json'
     wallpaper_dir = get_single_variable_from_json_file( config_path, "wallpaper_dir" )
-    interval_min = get_single_variable_from_json_file( config_path, "interval_min" )
+    interval_sec = get_single_variable_from_json_file( config_path, "interval_sec" )
 
     file_path_list = get_all_sub_filefile_from_dir(wallpaper_dir)
     # print(file_path_list)
@@ -62,11 +62,14 @@ def main():
     SPI_SETDESKWALLPAPER = 20
 
     for each_file in file_path_list:
+        t = time.localtime()
+        current_time = time.strftime("%Y-%m-%d %H:%M:%S", t)
         if file_is_image(each_file):
-            print('Chnage the image')
-            # dll.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, each_file, 0)
+            print('{}, change the image'.format(current_time))
+            dll.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, each_file, 0)
+            time.sleep(interval_sec)
         else:
-            print('skip it')
+            print('{}, skip it'.format(current_time))
 
 
 if __name__ == '__main__':

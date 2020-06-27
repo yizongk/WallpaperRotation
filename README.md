@@ -4,10 +4,10 @@ config.json sample:
 ```
 {
     "wallpaper_dir": "/path/to/where/your/wallpaper/is/",
-    "interval_min": 5
+    "interval_sec": 5
 }
 ```
-interval_min is the interval at which a new wallpaper is displayed
+interval_sec is the interval in seconds at which a new wallpaper is displayed
 
 Dependencies (Python libraries):
 * Python 3.8.2 (Earlier versions may work, but not tested)
