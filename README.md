@@ -9,7 +9,9 @@ config.json sample:
 }
 ```
 interval_sec is the interval in seconds at which a new wallpaper is displayed
+
 allow_repeats_per_cycle means if the same image can be repeated as Wallpaper in the one cycle (One cycle is equal to the number of files in the wallpaper_dir)
+
 
 Dependencies (Python libraries):
 * Python 3.8.2 (Earlier versions may work, but not tested)
