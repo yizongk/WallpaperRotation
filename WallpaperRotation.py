@@ -2,6 +2,7 @@ import json
 import ctypes
 import os
 import time
+import random
 
 # Return the dict of the json file
 def decode_json_config_file_to_dict( filepath='' ):
@@ -74,7 +75,9 @@ def main():
     dll = ctypes.WinDLL('user32')
     SPI_SETDESKWALLPAPER = 20
 
-    for each_file in file_path_list:
+    # for each_file in file_path_list:
+    for i in range(5):
+        each_file = random.choice(file_path_list)
         t = time.localtime()
         current_time = time.strftime("%Y-%m-%d %H:%M:%S", t)
         if file_is_image(each_file):

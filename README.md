@@ -15,6 +15,7 @@ Dependencies (Python libraries):
 * ctypes
 * os
 * time
+* random
 
 usage:
 * Create 'config.json' with the sample config.json above, and fill out the correct configs
