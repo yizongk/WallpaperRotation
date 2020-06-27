@@ -52,6 +52,11 @@ def file_is_image(filepath=''):
 
     image_extensions = [
         '.jpeg',
+        '.bmp',
+        '.gif',
+        '.jpg',
+        '.png',
+        '.tif',
     ]
 
     if file_extension in image_extensions:
