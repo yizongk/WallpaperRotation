@@ -48,7 +48,16 @@ def get_all_sub_filefile_from_dir( dir='' ):
 
 #@TODO
 def file_is_image(filepath=''):
-    return True
+    filename, file_extension = os.path.splitext(filepath)
+
+    image_extensions = [
+        '.jpeg',
+    ]
+
+    if file_extension in image_extensions:
+        return True
+    else:
+        return False
 
 def main():
     config_path = r'./config.json'
@@ -56,7 +65,6 @@ def main():
     interval_sec = get_single_variable_from_json_file( config_path, "interval_sec" )
 
     file_path_list = get_all_sub_filefile_from_dir(wallpaper_dir)
-    # print(file_path_list)
 
     dll = ctypes.WinDLL('user32')
     SPI_SETDESKWALLPAPER = 20
@@ -65,11 +73,11 @@ def main():
         t = time.localtime()
         current_time = time.strftime("%Y-%m-%d %H:%M:%S", t)
         if file_is_image(each_file):
-            print('{}, change the image'.format(current_time))
+            print('{}, changing the wallpaper... {}'.format(current_time, each_file))
             dll.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, each_file, 0)
             time.sleep(interval_sec)
         else:
-            print('{}, skip it'.format(current_time))
+            print('{}, not valid image extension, skip it... {}'.format(current_time, each_file))
 
 
 if __name__ == '__main__':
