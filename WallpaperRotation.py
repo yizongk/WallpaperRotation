@@ -69,23 +69,40 @@ def main():
     config_path = r'./config.json'
     wallpaper_dir = get_single_variable_from_json_file( config_path, "wallpaper_dir" )
     interval_sec = get_single_variable_from_json_file( config_path, "interval_sec" )
+    allow_repeats_per_cycle = get_single_variable_from_json_file( config_path, "allow_repeats_per_cycle" )
 
     file_path_list = get_all_sub_filefile_from_dir(wallpaper_dir)
 
     dll = ctypes.WinDLL('user32')
     SPI_SETDESKWALLPAPER = 20
 
-    # for each_file in file_path_list:
-    for i in range(5):
-        each_file = random.choice(file_path_list)
-        t = time.localtime()
-        current_time = time.strftime("%Y-%m-%d %H:%M:%S", t)
-        if file_is_image(each_file):
-            print('{}, changing the wallpaper... {}'.format(current_time, each_file))
-            dll.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, each_file, 0)
-            time.sleep(interval_sec)
-        else:
-            print('{}, not valid image extension, skip it... {}'.format(current_time, each_file))
+    if allow_repeats_per_cycle:
+        print( ' Allow repeats per cycle' )
+        # Can have repeating images one after another
+        for i in range(5):
+            random_file = random.choice(file_path_list)
+            t = time.localtime()
+            current_time = time.strftime("%Y-%m-%d %H:%M:%S", t)
+            if file_is_image(random_file):
+                print( ' {}, changing the wallpaper... {}'.format(current_time, random_file) )
+                dll.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, random_file, 0)
+                time.sleep(interval_sec)
+            else:
+                print( ' {}, not valid image extension, skip it... {}'.format(current_time, random_file) )
+    else:
+        # This method will guarantee no repeats until one cycle's up
+        # Randomize the order of the image. Note, shuffle works in-place and returns None
+        print( ' No repeats per cycle' )
+        random.shuffle(file_path_list)
+        for each_file in file_path_list:
+            t = time.localtime()
+            current_time = time.strftime("%Y-%m-%d %H:%M:%S", t)
+            if file_is_image(each_file):
+                print( ' {}, changing the wallpaper... {}'.format(current_time, each_file) )
+                dll.SystemParametersInfoW(SPI_SETDESKWALLPAPER, 0, each_file, 0)
+                time.sleep(interval_sec)
+            else:
+                print( ' {}, not valid image extension, skip it... {}'.format(current_time, each_file) )
 
 
 if __name__ == '__main__':

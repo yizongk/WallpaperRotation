@@ -4,10 +4,12 @@ config.json sample:
 ```
 {
     "wallpaper_dir": "/path/to/where/your/wallpaper/is/",
-    "interval_sec": 5
+    "interval_sec": 5,
+    "allow_repeats_per_cycle": true
 }
 ```
 interval_sec is the interval in seconds at which a new wallpaper is displayed
+allow_repeats_per_cycle means if the same image can be repeated as Wallpaper in the one cycle
 
 Dependencies (Python libraries):
 * Python 3.8.2 (Earlier versions may work, but not tested)
