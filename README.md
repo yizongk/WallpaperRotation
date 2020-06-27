@@ -1,4 +1,4 @@
-Py script to periodically update your Wallpaper from a folder of images
+Py script to periodically update your Wallpaper from a folder of images. Current support only windows 10 (Earlier version of windows may work, but not tested)
 
 config.json sample:
 ```
@@ -12,6 +12,7 @@ interval_min is the interval at which a new wallpaper is displayed
 Dependencies (Python libraries):
 * Python 3.8.2 (Earlier versions may work, but not tested)
 * json
+* ctypes
 
 usage:
 * Create 'config.json' with the sample config.json above, and fill out the correct configs
